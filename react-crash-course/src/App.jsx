@@ -4,10 +4,12 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import Post from "./components/Post";
 import PostsList from "./components/PostsList";
+import NewPost from "./components/NewPost";
 
 function App() {
   return (
     <main>
+      <NewPost />
       <PostsList />
     </main>
   );
