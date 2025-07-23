@@ -1,9 +1,11 @@
+import classes from "./Post.module.css";
+
 function Post(props) {
   return (
-    <div>
+    <li className={classes.post}>
       <p>{props.auth}</p>
       <p>{props.body}</p>
-    </div>
+    </li>
   );
 }
 
