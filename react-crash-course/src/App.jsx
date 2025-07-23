@@ -7,8 +7,8 @@ import Post from "./components/Post";
 function App() {
   return (
     <main>
-      <Post />
-      <Post />
+      <Post auth="Amir" body="Hello" />
+      <Post auth="Ali" body="Bye" />
       <Post />
     </main>
   );

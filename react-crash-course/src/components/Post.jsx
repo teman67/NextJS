@@ -1,11 +1,8 @@
-const names = ["Amir", "John", "Jane"];
-
-function Post() {
-  const chosenName = names[Math.floor(Math.random() * names.length)];
+function Post(props) {
   return (
     <div>
-      <p>{chosenName}</p>
-      <p>React is great!</p>
+      <p>{props.auth}</p>
+      <p>{props.body}</p>
     </div>
   );
 }
