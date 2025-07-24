@@ -4,8 +4,7 @@ import NewPost from "./NewPost";
 import { useState } from "react"; // Importing useState hook to manage state in functional components
 import Modal from "./Modal"; // Importing Modal component to display a modal dialog
 
-function PostsList() {
-  const [isModalOpen, setIsModalOpen] = useState(true); // This is a hook that allows you to add state to a functional component
+function PostsList({ isCloseModal, onStopPoting }) {
   const [enteredBody, setenteredBody] = useState(""); // This is a hook that allows you to add state to a functional component
   const [enteredAuth, setenteredAuth] = useState("");
 
@@ -15,10 +14,6 @@ function PostsList() {
 
   function changeAuthHandeler(event) {
     setenteredAuth(event.target.value);
-  }
-
-  function closeModal() {
-    setIsModalOpen(false);
   }
 
   return (
@@ -33,11 +28,12 @@ function PostsList() {
       ) : (
         false
       )} */}
-      {isModalOpen && (
-        <Modal onClose={closeModal}>
+      {isCloseModal && (
+        <Modal onClose={onStopPoting}>
           <NewPost
             changeBodyHandeler={changeBodyHandeler}
             changeAuthHandeler={changeAuthHandeler}
+            onClose={onStopPoting}
           />
         </Modal>
       )}

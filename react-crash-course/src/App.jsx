@@ -1,16 +1,26 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
-import Post from "./components/Post";
 import PostsList from "./components/PostsList";
-import NewPost from "./components/NewPost";
+import MainHeader from "./components/MainHeader";
+import { useState } from "react"; // Importing useState hook to manage state in functional components
 
 function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false); // This is a hook that allows you to add state to a functional component
+
+  function closeModal() {
+    setIsModalOpen(false);
+  }
+
+  function openModal() {
+    setIsModalOpen(true);
+  }
+
   return (
-    <main>
-      <PostsList />
-    </main>
+    <>
+      <MainHeader onCreatePost={openModal} />
+      <main>
+        <PostsList isCloseModal={isModalOpen} onStopPoting={closeModal} />
+      </main>
+    </>
   );
 }
 
