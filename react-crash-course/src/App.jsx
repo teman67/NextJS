@@ -18,7 +18,7 @@ function App() {
     <>
       <MainHeader onCreatePost={openModal} />
       <main>
-        <PostsList isCloseModal={isModalOpen} onStopPoting={closeModal} />
+        <PostsList isModalOpen={isModalOpen} onStopPosting={closeModal} />
       </main>
     </>
   );

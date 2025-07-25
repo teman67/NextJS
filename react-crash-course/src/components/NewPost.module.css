@@ -2,7 +2,7 @@
   background-color: #6233b9;
   padding: 1rem;
   width: 20rem;
-  margin: 2rem auto;
+  margin: 0 auto;
   border-radius: 6px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
@@ -52,4 +52,36 @@
 
 .actions button[type="button"]:hover {
   color: #d1bee6;
+}
+
+.counter {
+  display: block;
+  text-align: right;
+  font-size: 0.8rem;
+  color: #c4a9e4;
+  margin-top: 0.25rem;
+}
+
+.form p {
+  position: relative;
+}
+
+.error {
+  background-color: #ff6b6b;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.form input:disabled,
+.form textarea:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }

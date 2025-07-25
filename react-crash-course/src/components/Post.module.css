@@ -5,6 +5,16 @@
   border-radius: 8px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   animation: animate-in 1s ease-out forwards;
+  position: relative;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .author {
@@ -13,6 +23,30 @@
   color: #543280;
   margin: 0;
   text-transform: uppercase;
+}
+
+.date {
+  font-size: 0.7rem;
+  color: #6b4593;
+  opacity: 0.8;
+}
+
+.deleteBtn {
+  background: none;
+  border: none;
+  color: #543280;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.deleteBtn:hover {
+  background-color: #8366d9;
+  color: #fff;
 }
 
 .text {
