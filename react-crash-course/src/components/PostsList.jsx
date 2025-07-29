@@ -1,11 +1,11 @@
 import Post from "./Post";
 import classes from "./PostsList.module.css";
-import NewPost from "./NewPost";
+import NewPost from "../routes/NewPost";
 import { useState, useEffect } from "react"; // Importing useState and useEffect hooks
 import Modal from "./Modal"; // Importing Modal component to display a modal dialog
 import SearchBar from "./SearchBar";
 
-function PostsList({ isModalOpen, onStopPosting }) {
+function PostsList() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -77,12 +77,6 @@ function PostsList({ isModalOpen, onStopPosting }) {
 
   return (
     <>
-      {isModalOpen && (
-        <Modal onClose={onStopPosting}>
-          <NewPost onClose={onStopPosting} addPost={addPostHandler} />
-        </Modal>
-      )}
-
       <SearchBar searchTerm={searchTerm} onSearchChange={setSearchTerm} />
 
       {filteredPosts.length > 0 && (
