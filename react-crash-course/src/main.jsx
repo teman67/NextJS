@@ -6,13 +6,20 @@ import Post from "./components/Post.jsx";
 import ReactDom from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import NewPost from "./components/NewPost.jsx";
+import RootLayout from "./routes/RootLayout.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <RootLayout />,
+    children: [
+      {
+        path: "/",
+        element: <App />,
+      },
+      { path: "/create-post", element: <NewPost /> },
+    ],
   },
-  { path: "/create-post", element: <NewPost /> },
 ]);
 
 createRoot(document.getElementById("root")).render(
