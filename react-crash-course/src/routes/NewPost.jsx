@@ -1,11 +1,12 @@
 import classes from "./NewPost.module.css";
 import Modal from "../components/Modal"; // Importing Modal component to display a modal dialog
 import { useState } from "react"; // Importing useState hook to manage state in functional components
+import { Link } from "react-router-dom";
 
 const MAX_BODY_LENGTH = 300;
 const MAX_AUTHOR_LENGTH = 50;
 
-function NewPost({ onClose, addPost }) {
+function NewPost({ addPost }) {
   const [enteredBody, setenteredBody] = useState("");
   const [enteredAuth, setenteredAuth] = useState("");
   const [error, setError] = useState("");
@@ -108,14 +109,14 @@ function NewPost({ onClose, addPost }) {
           >
             {isSubmitting ? "Adding..." : "Add Post"}
           </button>
-          <button
+          <Link
+            to=".."
             type="button"
             className={classes.button}
-            onClick={onClose}
             disabled={isSubmitting}
           >
             Cancel
-          </button>
+          </Link>
         </p>
       </form>
     </Modal>
