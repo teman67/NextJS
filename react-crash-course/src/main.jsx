@@ -1,12 +1,11 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import Post from "./components/Post.jsx";
-import ReactDom from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import NewPost from "./routes/NewPost.jsx";
+import { action as newPostAction } from "./actions/newPostAction.js";
 import RootLayout from "./routes/RootLayout.jsx";
-import Posts from "./routes/Posts.jsx";
+import Posts, { loader as postsLoader } from "./routes/Posts.jsx";
 
 const router = createBrowserRouter([
   {
@@ -16,18 +15,21 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Posts />,
-        children: [{ path: "/create-post", element: <NewPost /> }],
+        loader: postsLoader,
+        children: [
+          {
+            path: "/create-post",
+            element: <NewPost />,
+            action: newPostAction,
+          },
+        ],
       },
-      { path: "/create-post", element: <NewPost /> },
     ],
   },
 ]);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    {/* <App /> */}
     <RouterProvider router={router} />
-    {/* Uncomment the line below to render the Post component */}
-    {/* <Post /> */}
   </StrictMode>
 );

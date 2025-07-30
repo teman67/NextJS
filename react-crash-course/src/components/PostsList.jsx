@@ -1,40 +1,35 @@
+import { useState, useEffect } from "react";
 import Post from "./Post";
 import classes from "./PostsList.module.css";
-import NewPost from "../routes/NewPost";
-import { useState, useEffect } from "react"; // Importing useState and useEffect hooks
-import Modal from "./Modal"; // Importing Modal component to display a modal dialog
 import SearchBar from "./SearchBar";
+import { useLoaderData, useLocation } from "react-router-dom";
 
 function PostsList() {
-  const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
-    async function fetchPosts() {
-      try {
-        const response = await fetch("http://localhost:8080/posts");
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const resData = await response.json();
-        setPosts(resData);
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-        // Fallback to localStorage if backend is not available
-        const savedPosts = localStorage.getItem("react-posts");
-        if (savedPosts) {
-          try {
-            setPosts(JSON.parse(savedPosts));
-          } catch (parseError) {
-            console.error("Error parsing localStorage posts:", parseError);
-            setPosts([]);
-          }
-        }
-      }
-    }
-    fetchPosts();
-  }, []);
-
+  const loaderPosts = useLoaderData();
+  const location = useLocation();
+  const [posts, setPosts] = useState(loaderPosts);
   const [searchTerm, setSearchTerm] = useState("");
+
+  // Update posts when loader data changes (e.g., after revalidation)
+  useEffect(() => {
+    setPosts(loaderPosts);
+  }, [loaderPosts]);
+
+  // Refresh posts when returning to main page
+  useEffect(() => {
+    if (location.pathname === "/") {
+      const refreshPosts = async () => {
+        try {
+          const response = await fetch("http://localhost:8080/posts");
+          const data = await response.json();
+          setPosts(data);
+        } catch (error) {
+          console.error("Failed to refresh posts:", error);
+        }
+      };
+      refreshPosts();
+    }
+  }, [location.pathname]);
 
   // Save posts to localStorage whenever posts change
   useEffect(() => {
@@ -48,31 +43,34 @@ function PostsList() {
       post.author.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  function addPostHandler(postData) {
-    return fetch("http://localhost:8080/posts", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(postData),
+  function deletePostHandler(postId) {
+    console.log("Attempting to delete post with ID:", postId);
+
+    // Delete from backend
+    fetch(`http://localhost:8080/posts/${postId}`, {
+      method: "DELETE",
     })
       .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to create post");
+        console.log("Delete response status:", response.status);
+        console.log("Delete response ok:", response.ok);
+
+        if (response.ok) {
+          console.log("Delete successful, updating local state");
+          // Update local state
+          setPosts((prevPosts) => {
+            const updatedPosts = prevPosts.filter((post) => post.id !== postId);
+            console.log("Updated posts:", updatedPosts);
+            return updatedPosts;
+          });
+        } else {
+          console.error("Delete failed with status:", response.status);
+          throw new Error(`Delete failed with status: ${response.status}`);
         }
-        return response.json();
-      })
-      .then((newPost) => {
-        setPosts((prevPosts) => [newPost, ...prevPosts]); // Add new posts at the beginning
       })
       .catch((error) => {
-        console.error("Error creating post:", error);
-        throw error; // Re-throw the error to be caught in the submitHandler
+        console.error("Error deleting post:", error);
+        alert("Failed to delete post. Please try again.");
       });
-  }
-
-  function deletePostHandler(postId) {
-    setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
   }
 
   return (
