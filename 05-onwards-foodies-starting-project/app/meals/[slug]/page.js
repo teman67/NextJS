@@ -1,4 +1,5 @@
-export default function MealPage({ params }) {
+export default async function MealPage(props) {
+  const params = await props.params;
   return (
     <main>
       <h1>{params.slug}</h1>
