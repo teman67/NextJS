@@ -1,0 +1,36 @@
+.meals {
+  width: 90%;
+  max-width: 90rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  gap: 5rem;
+  margin: 2rem auto;
+  list-style: none;
+  padding: 0;
+}
+
+.noMeals {
+  text-align: center;
+  color: #ddd6cb;
+  font-size: 1.2rem;
+  margin: 4rem auto;
+  padding: 2rem;
+  background: linear-gradient(90deg, #2c1e19, #25200f);
+  border-radius: 8px;
+  max-width: 40rem;
+}
+
+/* Responsive design improvements */
+@media (max-width: 768px) {
+  .meals {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    width: 95%;
+  }
+}
+
+@media (max-width: 480px) {
+  .meals {
+    gap: 2rem;
+  }
+}

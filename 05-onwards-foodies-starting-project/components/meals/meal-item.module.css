@@ -1,0 +1,140 @@
+.meal {
+  background: linear-gradient(90deg, #2c1e19, #25200f);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.meal:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  transform: translateY(-2px);
+}
+
+.meal header {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  gap: 2rem;
+  flex-shrink: 0;
+}
+
+.image {
+  position: relative;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #76453b;
+  flex-shrink: 0;
+}
+
+.image img {
+  object-fit: cover;
+}
+
+.headerText {
+  flex: 1;
+  min-width: 0; /* Allows text to shrink */
+}
+
+.headerText h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  color: #ddd6cb;
+  font-family: "Montserrat", sans-serif;
+  line-height: 1.2;
+  word-wrap: break-word;
+}
+
+.headerText p {
+  margin: 0;
+  color: #cfa69b;
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.creator {
+  font-weight: 600;
+  color: #f9b331;
+}
+
+.content {
+  padding: 0 1.5rem 1.5rem 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.summary {
+  color: #ddd6cb;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  flex: 1;
+  font-size: 0.95rem;
+}
+
+.actions {
+  text-align: right;
+  margin-top: auto;
+}
+
+.actions a {
+  background: linear-gradient(90deg, #f9572a, #ff9a05);
+  color: white;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+  display: inline-block;
+  font-size: 0.9rem;
+}
+
+.actions a:hover {
+  background: linear-gradient(90deg, #fd4715, #f9b241);
+  box-shadow: 0 4px 12px rgba(255, 154, 5, 0.4);
+  transform: translateY(-1px);
+}
+
+.actions a:focus {
+  outline: 2px solid #f9b331;
+  outline-offset: 2px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .meal header {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .image {
+    width: 6rem;
+    height: 6rem;
+  }
+
+  .headerText h2 {
+    font-size: 1.25rem;
+  }
+
+  .content {
+    padding: 0 1rem 1rem 1rem;
+  }
+
+  .actions {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .actions a {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+}
