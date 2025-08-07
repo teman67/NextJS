@@ -3,12 +3,19 @@ import classes from "./page.module.css";
 import MealsGrid from "@/components/meals/meals-grid";
 // import { getMeals } from "@/lib/meals"; // For static generation
 import { getMeals } from "@/lib/meals_db"; // Adjusted import to match the new file structure
+import { Suspense } from "react";
 
 export const metadata = {
   title: "All Meals | NextLevel Food",
   description:
     "Browse our collection of delicious meals shared by our food-loving community. Discover new recipes and get inspired to cook!",
 };
+
+async function Meals() {
+  const meals = await getMeals();
+
+  return <MealsGrid meals={meals} />;
+}
 
 export default async function MealsPage() {
   // const meals = getMeals();  for static generation
@@ -29,7 +36,16 @@ export default async function MealsPage() {
         </p>
       </header>
       <main className={classes.main}>
-        <MealsGrid meals={meals} />
+        {/* <MealsGrid meals={meals} /> */}
+        <Suspense
+          fallback={
+            <div className={classes.loading}>
+              <p>Loading...</p>
+            </div>
+          }
+        >
+          <Meals />
+        </Suspense>
       </main>
     </>
   );
