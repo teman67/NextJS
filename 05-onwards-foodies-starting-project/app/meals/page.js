@@ -1,7 +1,8 @@
 import Link from "next/link";
 import classes from "./page.module.css";
 import MealsGrid from "@/components/meals/meals-grid";
-import { getMeals } from "@/lib/meals";
+// import { getMeals } from "@/lib/meals"; // For static generation
+import { getMeals } from "@/lib/meals_db"; // Adjusted import to match the new file structure
 
 export const metadata = {
   title: "All Meals | NextLevel Food",
@@ -9,8 +10,9 @@ export const metadata = {
     "Browse our collection of delicious meals shared by our food-loving community. Discover new recipes and get inspired to cook!",
 };
 
-export default function MealsPage() {
-  const meals = getMeals();
+export default async function MealsPage() {
+  // const meals = getMeals();  for static generation
+  const meals = await getMeals(); // for server-side rendering
 
   return (
     <>
