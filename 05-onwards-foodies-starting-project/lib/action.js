@@ -1,5 +1,7 @@
 "use server";
 
+import { saveMeal } from "./meals_db";
+
 export async function handleSubmit(formData) {
   "use server";
   const meal = {
@@ -10,5 +12,5 @@ export async function handleSubmit(formData) {
     name: formData.get("name"),
     email: formData.get("email"),
   };
-  console.log("Meal shared:", meal);
+  await saveMeal(meal);
 }
