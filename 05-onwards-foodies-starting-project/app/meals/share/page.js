@@ -3,6 +3,9 @@ import ImagePicker from "@/components/meals/image-picker";
 import { handleSubmit } from "@/lib/action";
 import MealFormSubmit from "../meal-form-submit";
 
+// Force dynamic rendering for this page
+export const dynamic = "force-dynamic";
+
 export default function ShareMealPage() {
   return (
     <>
