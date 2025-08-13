@@ -1,5 +1,6 @@
 "use server";
 
+import { redirect } from "next/dist/server/api-utils";
 import { saveMeal } from "./meals_db";
 
 export async function handleSubmit(formData) {
@@ -13,4 +14,5 @@ export async function handleSubmit(formData) {
     email: formData.get("email"),
   };
   await saveMeal(meal);
+  redirect("/meals");
 }
