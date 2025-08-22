@@ -2,75 +2,20 @@ import Link from "next/link";
 
 export default function MainHeader() {
   return (
-    <header
-      style={{
-        padding: "1rem",
-        backgroundColor: "#1f2937",
-        color: "white",
-        marginBottom: "2rem",
-      }}
-    >
-      <nav>
-        <ul
-          style={{
-            display: "flex",
-            listStyle: "none",
-            gap: "2rem",
-            margin: 0,
-            padding: 0,
-          }}
-        >
+    <header className="main-header">
+      <nav className="main-nav">
+        <ul>
           <li>
-            <Link
-              href="/"
-              style={{
-                color: "white",
-                textDecoration: "none",
-                fontSize: "1.1rem",
-                fontWeight: "500",
-              }}
-            >
-              Home
-            </Link>
+            <Link href="/">Home</Link>
           </li>
           <li>
-            <Link
-              href="/news"
-              style={{
-                color: "white",
-                textDecoration: "none",
-                fontSize: "1.1rem",
-                fontWeight: "500",
-              }}
-            >
-              News
-            </Link>
+            <Link href="/news">News</Link>
           </li>
           <li>
-            <Link
-              href="/latest"
-              style={{
-                color: "white",
-                textDecoration: "none",
-                fontSize: "1.1rem",
-                fontWeight: "500",
-              }}
-            >
-              Latest
-            </Link>
+            <Link href="/latest">Latest</Link>
           </li>
           <li>
-            <Link
-              href="/archive"
-              style={{
-                color: "white",
-                textDecoration: "none",
-                fontSize: "1.1rem",
-                fontWeight: "500",
-              }}
-            >
-              Archive
-            </Link>
+            <Link href="/archive">Archive</Link>
           </li>
         </ul>
       </nav>

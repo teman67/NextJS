@@ -21,46 +21,14 @@ export default function NewsDetailPage({ params }) {
 
   return (
     <>
-      <article
-        style={{
-          maxWidth: "900px",
-          margin: "0 auto",
-          padding: "2rem",
-          lineHeight: "1.6",
-        }}
-      >
-        <div style={{ marginBottom: "2rem" }}>
-          <Link
-            href="/news"
-            style={{
-              color: "#3b82f6",
-              textDecoration: "none",
-              fontSize: "0.9rem",
-              fontWeight: "500",
-            }}
-          >
-            ← Back to News
-          </Link>
+      <article className="article-container">
+        <div className="article-back-link">
+          <Link href="/news">← Back to News</Link>
         </div>
 
-        <header style={{ marginBottom: "2rem" }}>
-          <h1
-            style={{
-              fontSize: "2.5rem",
-              marginBottom: "1rem",
-              lineHeight: "1.2",
-              color: "#1f2937",
-            }}
-          >
-            {article.title}
-          </h1>
-          <div
-            style={{
-              color: "#6b7280",
-              fontSize: "0.9rem",
-              marginBottom: "2rem",
-            }}
-          >
+        <header className="article-header">
+          <h1 className="article-title">{article.title}</h1>
+          <div className="article-meta">
             <span>
               {new Date(article.date).toLocaleDateString("en-US", {
                 year: "numeric",
@@ -71,73 +39,27 @@ export default function NewsDetailPage({ params }) {
           </div>
         </header>
 
-        <div style={{ marginBottom: "2rem" }}>
-          <div
-            style={{
-              position: "relative",
-              height: "400px",
-              borderRadius: "12px",
-              overflow: "hidden",
-              cursor: "pointer",
-              boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
-            }}
-            onClick={openModal}
-          >
+        <div className="article-image-container">
+          <div className="article-image-wrapper" onClick={openModal}>
             <Image
               src={`/images/${article.image}`}
               alt={article.title}
               fill
               style={{ objectFit: "cover" }}
             />
-            <div
-              style={{
-                position: "absolute",
-                top: "1rem",
-                right: "1rem",
-                backgroundColor: "rgba(0, 0, 0, 0.7)",
-                color: "white",
-                padding: "0.5rem 1rem",
-                borderRadius: "20px",
-                fontSize: "0.875rem",
-                fontWeight: "500",
-              }}
-            >
+            <div className="article-image-overlay">
               Click to view fullscreen
             </div>
           </div>
         </div>
 
-        <div
-          style={{
-            fontSize: "1.1rem",
-            whiteSpace: "pre-line",
-            color: "#374151",
-            lineHeight: "1.8",
-          }}
-        >
-          {article.content}
-        </div>
+        <div className="article-content">{article.content}</div>
       </article>
 
       {/* Full-screen Image Modal */}
       {isModalOpen && (
-        <div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: "rgba(0, 0, 0, 0.95)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            zIndex: 1000,
-            cursor: "pointer",
-          }}
-          onClick={closeModal}
-        >
-          <div style={{ position: "relative", width: "100%", height: "100%" }}>
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-content">
             <Image
               src={`/images/${article.image}`}
               alt={article.title}
@@ -146,45 +68,12 @@ export default function NewsDetailPage({ params }) {
             />
 
             {/* Overlay text */}
-            <div
-              style={{
-                position: "absolute",
-                bottom: 0,
-                left: 0,
-                right: 0,
-                background: "linear-gradient(transparent, rgba(0, 0, 0, 0.8))",
-                color: "white",
-                padding: "4rem 2rem 2rem",
-                textAlign: "center",
-              }}
-            >
-              <h2
-                style={{
-                  fontSize: "2rem",
-                  marginBottom: "1rem",
-                  fontWeight: "bold",
-                }}
-              >
-                {article.title}
-              </h2>
-              <p
-                style={{
-                  fontSize: "1.1rem",
-                  lineHeight: "1.6",
-                  maxWidth: "800px",
-                  margin: "0 auto",
-                  opacity: 0.9,
-                }}
-              >
+            <div className="modal-text-overlay">
+              <h2 className="modal-title">{article.title}</h2>
+              <p className="modal-description">
                 {article.content.slice(0, 200)}...
               </p>
-              <p
-                style={{
-                  fontSize: "0.9rem",
-                  marginTop: "1rem",
-                  opacity: 0.7,
-                }}
-              >
+              <p className="modal-date">
                 {new Date(article.date).toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",
@@ -195,32 +84,10 @@ export default function NewsDetailPage({ params }) {
 
             {/* Close button */}
             <button
-              style={{
-                position: "absolute",
-                top: "2rem",
-                right: "2rem",
-                backgroundColor: "rgba(255, 255, 255, 0.2)",
-                border: "2px solid white",
-                color: "white",
-                borderRadius: "50%",
-                width: "50px",
-                height: "50px",
-                fontSize: "1.5rem",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                transition: "background-color 0.2s",
-              }}
+              className="modal-close-button"
               onClick={(e) => {
                 e.stopPropagation();
                 closeModal();
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.backgroundColor = "rgba(255, 255, 255, 0.3)";
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.backgroundColor = "rgba(255, 255, 255, 0.2)";
               }}
             >
               ✕

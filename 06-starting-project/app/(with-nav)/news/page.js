@@ -4,77 +4,23 @@ import { DUMMY_NEWS } from "../../../dummy-news.js";
 
 export default function NewsPage() {
   return (
-    <div style={{ padding: "2rem" }}>
-      <h1
-        style={{
-          textAlign: "center",
-          marginBottom: "2rem",
-          fontSize: "2.5rem",
-          color: "#1f2937",
-        }}
-      >
-        Latest News
-      </h1>
+    <div className="news-container">
+      <h1 className="news-title">Latest News</h1>
 
       {/* Navigation Links */}
-      <div
-        style={{
-          display: "flex",
-          gap: "1rem",
-          justifyContent: "center",
-          marginBottom: "3rem",
-        }}
-      >
-        <Link
-          href="/latest"
-          style={{
-            backgroundColor: "#3b82f6",
-            color: "white",
-            padding: "0.75rem 1.5rem",
-            borderRadius: "8px",
-            textDecoration: "none",
-            fontWeight: "500",
-          }}
-        >
+      <div className="news-nav-links">
+        <Link href="/latest" className="news-nav-link primary">
           Latest News
         </Link>
-        <Link
-          href="/archive"
-          style={{
-            backgroundColor: "#6b7280",
-            color: "white",
-            padding: "0.75rem 1.5rem",
-            borderRadius: "8px",
-            textDecoration: "none",
-            fontWeight: "500",
-          }}
-        >
+        <Link href="/archive" className="news-nav-link secondary">
           Archive
         </Link>
       </div>
 
-      <div
-        style={{
-          display: "grid",
-          gap: "2rem",
-          maxWidth: "1200px",
-          margin: "0 auto",
-          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-        }}
-      >
+      <div className="news-grid">
         {DUMMY_NEWS.map((article) => (
-          <article
-            key={article.id}
-            style={{
-              border: "1px solid #e5e7eb",
-              borderRadius: "12px",
-              overflow: "hidden",
-              backgroundColor: "white",
-              boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
-              transition: "transform 0.2s ease, box-shadow 0.2s ease",
-            }}
-          >
-            <div style={{ position: "relative", height: "200px" }}>
+          <article key={article.id} className="news-card">
+            <div className="news-card-image">
               <Link href={`/news/${article.slug}`}>
                 <Image
                   src={`/images/${article.image}`}
@@ -84,54 +30,23 @@ export default function NewsPage() {
                 />
               </Link>
             </div>
-            <div style={{ padding: "1.5rem" }}>
-              <h2
-                style={{
-                  marginTop: 0,
-                  marginBottom: "0.5rem",
-                  fontSize: "1.25rem",
-                }}
-              >
-                <Link
-                  href={`/news/${article.slug}`}
-                  style={{
-                    color: "#1f2937",
-                    textDecoration: "none",
-                  }}
-                >
-                  {article.title}
-                </Link>
+            <div className="news-card-content">
+              <h2 className="news-card-title">
+                <Link href={`/news/${article.slug}`}>{article.title}</Link>
               </h2>
-              <p
-                style={{
-                  color: "#6b7280",
-                  marginBottom: "1rem",
-                  fontSize: "0.875rem",
-                }}
-              >
+              <p className="news-card-date">
                 {new Date(article.date).toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",
                   day: "numeric",
                 })}
               </p>
-              <p
-                style={{
-                  marginBottom: "1rem",
-                  color: "#4b5563",
-                  lineHeight: "1.6",
-                }}
-              >
+              <p className="news-card-excerpt">
                 {article.content.slice(0, 150)}...
               </p>
               <Link
                 href={`/news/${article.slug}`}
-                style={{
-                  color: "#3b82f6",
-                  textDecoration: "none",
-                  fontWeight: "500",
-                  fontSize: "0.875rem",
-                }}
+                className="news-card-read-more"
               >
                 Read More →
               </Link>
