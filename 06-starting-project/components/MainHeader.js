@@ -46,6 +46,32 @@ export default function MainHeader() {
               News
             </Link>
           </li>
+          <li>
+            <Link
+              href="/latest"
+              style={{
+                color: "white",
+                textDecoration: "none",
+                fontSize: "1.1rem",
+                fontWeight: "500",
+              }}
+            >
+              Latest
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/archive"
+              style={{
+                color: "white",
+                textDecoration: "none",
+                fontSize: "1.1rem",
+                fontWeight: "500",
+              }}
+            >
+              Archive
+            </Link>
+          </li>
         </ul>
       </nav>
     </header>

@@ -1,7 +1,8 @@
-export default function HomePage() {
+import Link from "next/link";
+
+export default function NewsNotFoundPage() {
   return (
     <div
-      id="home"
       style={{
         maxWidth: "800px",
         margin: "0 auto",
@@ -16,7 +17,7 @@ export default function HomePage() {
           color: "#1f2937",
         }}
       >
-        Next.js Routing & Page Rendering
+        404 - News Article Not Found
       </h1>
       <p
         style={{
@@ -25,9 +26,19 @@ export default function HomePage() {
           marginBottom: "2rem",
         }}
       >
-        Welcome to our Next.js application! Navigate to the News page to see
-        dynamic routing in action.
+        Sorry, the news article you are looking for does not exist.
       </p>
+      <Link
+        href="/news"
+        style={{
+          color: "#3b82f6",
+          textDecoration: "none",
+          fontSize: "1.1rem",
+          fontWeight: "500",
+        }}
+      >
+        ← Go back to News
+      </Link>
     </div>
   );
 }
