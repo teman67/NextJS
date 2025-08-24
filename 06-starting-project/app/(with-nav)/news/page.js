@@ -1,8 +1,29 @@
 import Link from "next/link";
 import Image from "next/image";
-import { DUMMY_NEWS } from "../../../dummy-news.js";
+import { getNews } from "../../../lib/api.js";
 
-export default function NewsPage() {
+export default async function NewsPage() {
+  let news = [];
+  let error = null;
+
+  try {
+    news = await getNews();
+  } catch (err) {
+    error = err.message;
+  }
+
+  if (error) {
+    return (
+      <div className="news-container">
+        <h1 className="news-title">Latest News</h1>
+        <div style={{ textAlign: "center", padding: "2rem" }}>
+          <p style={{ color: "#dc2626" }}>Error loading news: {error}</p>
+          <p>Please make sure the backend server is running on port 8080.</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="news-container">
       <h1 className="news-title">Latest News</h1>
@@ -18,7 +39,7 @@ export default function NewsPage() {
       </div>
 
       <div className="news-grid">
-        {DUMMY_NEWS.map((article) => (
+        {news.map((article) => (
           <article key={article.id} className="news-card">
             <div className="news-card-image">
               <Link href={`/news/${article.slug}`}>

@@ -3,14 +3,60 @@
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { DUMMY_NEWS } from "../../../../dummy-news.js";
-import { useState } from "react";
+import { getNewsBySlug, getNews } from "../../../../lib/api.js";
+import { useState, useEffect } from "react";
+
+// Note: generateStaticParams must be in a server component, but this is a client component
+// so we'll handle dynamic loading on the client side
 
 export default function NewsDetailPage({ params }) {
   const { slug } = params;
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [article, setArticle] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const article = DUMMY_NEWS.find((item) => item.slug === slug);
+  useEffect(() => {
+    async function fetchArticle() {
+      try {
+        setLoading(true);
+        const fetchedArticle = await getNewsBySlug(slug);
+        if (!fetchedArticle) {
+          setError("Article not found");
+          return;
+        }
+        setArticle(fetchedArticle);
+      } catch (err) {
+        console.error("Error fetching article:", err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchArticle();
+  }, [slug]);
+
+  if (loading) {
+    return (
+      <div className="article-container">
+        <div style={{ textAlign: "center", padding: "2rem" }}>
+          <p>Loading article...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="article-container">
+        <div style={{ textAlign: "center", padding: "2rem" }}>
+          <p style={{ color: "#dc2626" }}>Error loading article: {error}</p>
+          <Link href="/news">← Back to News</Link>
+        </div>
+      </div>
+    );
+  }
 
   if (!article) {
     notFound();
