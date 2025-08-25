@@ -1,48 +1,47 @@
-import { storePost } from "@/lib/posts";
-import { redirect } from "next/navigation";
-import FormSubmit from "@/components/form-submit";
+import { createPost } from "@/lib/actions";
+import FormSubmit from "@/components/FormSubmit";
 
 export default function NewPostPage() {
-  async function createPost(formData) {
-    "use server";
-    const title = formData.get("title");
-    const image = formData.get("image");
-    const content = formData.get("content");
-
-    await storePost({
-      imageUrl: "",
-      title,
-      content,
-      userId: 1,
-    });
-
-    redirect("/feed");
-  }
-
   return (
     <>
-      <h1>Create a new post</h1>
+      <div className="hero-section">
+        <h1>Create a New Post</h1>
+        <p>Share your thoughts, experiences, and images with the community.</p>
+      </div>
       <form action={createPost}>
-        <p className="form-control">
-          <label htmlFor="title">Title</label>
-          <input type="text" id="title" name="title" />
-        </p>
-        <p className="form-control">
-          <label htmlFor="image">Image URL</label>
+        <div className="form-control">
+          <label htmlFor="title">Post Title</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            placeholder="Enter an engaging title for your post..."
+            required
+          />
+        </div>
+        <div className="form-control">
+          <label htmlFor="image">Upload Image</label>
           <input
             type="file"
-            accept="image/png, image/jpeg"
+            accept="image/png, image/jpeg, image/jpg, image/webp"
             id="image"
             name="image"
+            required
           />
-        </p>
-        <p className="form-control">
+        </div>
+        <div className="form-control">
           <label htmlFor="content">Content</label>
-          <textarea id="content" name="content" rows="5" />
-        </p>
-        <p className="form-actions">
+          <textarea
+            id="content"
+            name="content"
+            rows="6"
+            placeholder="Share your story, thoughts, or experiences..."
+            required
+          />
+        </div>
+        <div className="form-actions">
           <FormSubmit />
-        </p>
+        </div>
       </form>
     </>
   );

@@ -1,6 +1,6 @@
-import sql from 'better-sqlite3';
+import sql from "better-sqlite3";
 
-const db = new sql('posts.db');
+const db = new sql("posts.db");
 
 function initDb() {
   db.exec(`
@@ -30,7 +30,7 @@ function initDb() {
     )`);
 
   // Creating two dummy users if they don't exist already
-  const stmt = db.prepare('SELECT COUNT(*) AS count FROM users');
+  const stmt = db.prepare("SELECT COUNT(*) AS count FROM users");
 
   if (stmt.get().count === 0) {
     db.exec(`
@@ -43,15 +43,26 @@ function initDb() {
     VALUES ('Max', 'Schwarz', 'max@example.com')
   `);
   }
+
+  // Add some sample posts if none exist
+  const postStmt = db.prepare("SELECT COUNT(*) AS count FROM posts");
+  if (postStmt.get().count === 0) {
+    db.exec(`
+      INSERT INTO posts (image_url, title, content, user_id)
+      VALUES 
+        ('https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&h=300&fit=crop', 'Welcome to NextPosts!', 'This is our first post. Share your thoughts and images with the community!', 1),
+        ('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500&h=300&fit=crop', 'Building with Next.js', 'Next.js makes it easy to build full-stack React applications with server-side rendering and API routes.', 2)
+    `);
+  }
 }
 
 initDb();
 
 export async function getPosts(maxNumber) {
-  let limitClause = '';
+  let limitClause = "";
 
   if (maxNumber) {
-    limitClause = 'LIMIT ?';
+    limitClause = "LIMIT ?";
   }
 
   const stmt = db.prepare(`
@@ -68,11 +79,17 @@ export async function getPosts(maxNumber) {
 }
 
 export async function storePost(post) {
+  // Ensure we never store empty image URLs
+  const imageUrl =
+    post.imageUrl && post.imageUrl.trim() !== ""
+      ? post.imageUrl
+      : "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&h=300&fit=crop";
+
   const stmt = db.prepare(`
     INSERT INTO posts (image_url, title, content, user_id)
     VALUES (?, ?, ?, ?)`);
   await new Promise((resolve) => setTimeout(resolve, 1000));
-  return stmt.run(post.imageUrl, post.title, post.content, post.userId);
+  return stmt.run(imageUrl, post.title, post.content, post.userId);
 }
 
 export async function updatePostLikeStatus(postId, userId) {

@@ -1,7 +1,8 @@
-import { Suspense } from 'react';
+import { Suspense } from "react";
 
-import Posts from '@/components/posts';
-import { getPosts } from '@/lib/posts';
+import Posts from "@/components/posts";
+import { PostsSkeleton } from "@/components/skeleton";
+import { getPosts } from "@/lib/posts";
 
 async function LatestPosts() {
   const latestPosts = await getPosts(2);
@@ -11,12 +12,18 @@ async function LatestPosts() {
 export default async function Home() {
   return (
     <>
-      <h1>Welcome back!</h1>
-      <p>Here's what you might've missed.</p>
+      <div className="hero-section">
+        <h1>Welcome back!</h1>
+        <p>
+          Discover amazing content from our vibrant community. Here's what you
+          might've missed.
+        </p>
+      </div>
       <section id="latest-posts">
-      <Suspense fallback={<p>Loading recent posts...</p>}>
-        <LatestPosts />
-      </Suspense>
+        <h2>Latest Posts</h2>
+        <Suspense fallback={<PostsSkeleton />}>
+          <LatestPosts />
+        </Suspense>
       </section>
     </>
   );
