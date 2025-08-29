@@ -1,6 +1,6 @@
-import sql from 'better-sqlite3';
+import sql from "better-sqlite3";
 
-const db = sql('training.db');
+const db = sql("training.db");
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS users (
@@ -13,7 +13,7 @@ db.exec(`
 db.exec(`CREATE TABLE IF NOT EXISTS sessions (
   id TEXT NOT NULL PRIMARY KEY,
   expires_at INTEGER NOT NULL,
-  user_id TEXT NOT NULL,
+  user_id INTEGER NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users(id)
 )`);
 
@@ -27,7 +27,7 @@ db.exec(`
 `);
 
 const hasTrainings =
-  db.prepare('SELECT COUNT(*) as count FROM trainings').get().count > 0;
+  db.prepare("SELECT COUNT(*) as count FROM trainings").get().count > 0;
 
 if (!hasTrainings) {
   db.exec(`
